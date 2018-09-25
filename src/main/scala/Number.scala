@@ -49,10 +49,17 @@ object Number {
     * @param in2
     * @return
     */
-  def isNeg(in1:Int, in2:Int) = if ((in1 >> 31 ^ in2 >> 31) == -1) true else false
+  def isNeg(in1:Int, in2:Int):Boolean = if ((in1 >> 31 ^ in2 >> 31) == -1) true else false
+
+
+  def isNeg(number: Number):Boolean = isNeg(number.a,number.b)
 
   def gcd(in1:Int, in2: Int):Int = {
     val n = in1 % in2
     if (n == 0) in2 else gcd(in2, n)
   }
+
+  def max(number1:Number, number2:Number) = if (!isNeg(Calculate.sub(number1,number2).get)) number1 else number2
+
+  def abs(number: Number) = generate(math.abs(number.a), math.abs(number.b)).get
 }
