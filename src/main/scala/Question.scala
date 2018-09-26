@@ -1,3 +1,4 @@
+import java.util
 import java.util.NoSuchElementException
 
 import scala.collection.mutable
@@ -54,7 +55,9 @@ object Question {
     while (resultSet.size < sum){
       resultSet.add(createNodeTree(Random.nextInt(symbolSum) + 1,bound))
     }
-    resultSet
+    val array:util.ArrayList[Node] = new util.ArrayList[Node]()
+    resultSet.foreach(result => array.add(result))
+    array
   }
 
 }

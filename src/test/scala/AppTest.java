@@ -8,6 +8,7 @@ import org.junit.Test;
  */
 public class AppTest {
     @Test
-    public void testSymbol(){
+    public void outputQuestion(){
+        App.outputQuestion(10000, 10);
     }
 }
