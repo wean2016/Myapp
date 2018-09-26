@@ -18,6 +18,30 @@ case class Number(a:Int, b:Int) {
 
 object Number {
 
+
+
+  def fromString(s:String):Option[Number] = {
+    val value = s.trim
+    try{
+      if (!value.contains("/")){
+        // 非分数
+        Number.generate(s.toInt, 1)
+      }else if (!value.contains("'")){
+        // 是普通分数
+        val nums = value.split("/")
+        Number.generate(nums(0).toInt,nums(1).toInt)
+      }else {
+        val nums = value.split("'|/")
+        Number.generate(nums(0).toInt * nums(2).toInt + nums(1).toInt, nums(2).toInt)
+      }
+    }catch {
+      case e:NumberFormatException => {
+        Option.empty
+      }
+    }
+
+  }
+
   def randomNumber(bound:Int):Number = if (Random.nextBoolean()){
         Number(Random.nextInt(bound),1)
       }else {

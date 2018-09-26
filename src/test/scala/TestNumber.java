@@ -36,5 +36,13 @@ public class TestNumber {
         }
     }
 
+    @Test
+    public void testFromString(){
+        System.out.println(Number.fromString("1'2/3"));
+        System.out.println(Number.fromString("2/3"));
+        System.out.println(Number.fromString("3"));
+        System.out.println(Number.fromString(""));
+    }
+
 
 }

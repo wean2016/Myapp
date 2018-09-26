@@ -20,4 +20,9 @@ public class TestNode {
     public void testToString(){
         IntStream.range(1,100).mapToObj(operand -> Question.createNodeTree(3,10).toString()).forEach(System.out::println);
     }
+
+    @Test
+    public void testFromString(){
+        System.out.println(Node.fromString("(0 + 1)×2÷3").value().toString());
+    }
 }
