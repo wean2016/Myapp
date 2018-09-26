@@ -16,4 +16,5 @@ public enum Symbol {
     Symbol(String value) {
         this.value = value;
     }
+
 }
