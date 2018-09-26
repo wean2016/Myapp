@@ -9,6 +9,11 @@ import org.junit.Test;
 public class AppTest {
     @Test
     public void outputQuestion(){
-        App.outputQuestion(10000, 10);
+        App.outputQuestion(10, 10);
+    }
+
+    @Test
+    public void outputGrade(){
+        App.outputGrade();
     }
 }

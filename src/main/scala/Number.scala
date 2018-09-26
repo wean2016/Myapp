@@ -63,7 +63,7 @@ object Number {
     if (in2 <= 0) return Option.empty
     val g = gcd(in1,in2)
     val a = if (isNeg(in1, in2)) - Math.abs(in1) / g else Math.abs(in1) / g
-    val b = Math.abs(in2) / g
+    val b = Math.abs(in2 / g)
     Option.apply(Number(a,b))
   }
 

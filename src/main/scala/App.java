@@ -1,6 +1,6 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import scala.Option;
+
+import java.io.*;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +23,52 @@ public class App {
         } catch (IOException e) {
 //            e.printStackTrace();
             System.err.print("创建题库失败");
+        }
+    }
+
+    public static void outputGrade(){
+        try (BufferedReader exReader = new BufferedReader(new FileReader("Exercises.txt"));
+             BufferedReader anReader = new BufferedReader(new FileReader("Answers.txt"));
+             BufferedWriter gradeWriter = new BufferedWriter(new FileWriter("Grade.txt"))){
+            String ex, an;
+            int c = 0, w = 0;
+            StringBuilder correct = new StringBuilder("Correct: %d (");
+            StringBuilder wrong = new StringBuilder("Wrong: %d (");
+            while ((ex = exReader.readLine()) != null && (an = anReader.readLine()) != null) {
+                int exPoint = ex.indexOf(".");
+                int anPoint = an.indexOf(".");
+                if (exPoint != -1 && anPoint != -1) {
+                    int i = Integer.valueOf(ex.substring(0,exPoint).trim());
+                    Node node = Node.fromString(ex.substring(exPoint + 1));
+                    Option<Number> numberOption = Number.fromString(an.substring(anPoint + 1));
+                    if (numberOption.isEmpty()){
+                        System.err.println(String.format("第 %d 道答案格式不对", i));
+                        return;
+                    }
+                    Number answer = numberOption.get();
+                    if (node.value().toString().equals(answer.toString())) {
+                        c++;
+                        correct.append(" ").append(i);
+                        if (c % 20 == 0) {
+                            correct.append("\n");
+                        }
+                    } else {
+                        w++;
+                        wrong.append(" ").append(i);
+                        if (w % 20 == 0) {
+                            wrong.append("\n");
+                        }
+                    }
+                }
+            }
+            gradeWriter.write(String.format(correct.append(" )\n").toString(),c));
+            gradeWriter.write(String.format(wrong.append(" )\n").toString(),w));
+            gradeWriter.flush();
+        } catch (FileNotFoundException e) {
+            System.err.println("没有找到题库或答案文件");
+        } catch (IOException e) {
+//            e.printStackTrace();
+            System.err.println("输出成绩文件失败");
         }
     }
 }
